@@ -1,0 +1,4 @@
+php7:
+  image: php:7.0-apache
+  ports:
+    - "80:80"
