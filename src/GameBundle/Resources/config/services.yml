@@ -1,4 +1,11 @@
 services:
+    cache_wrapper:
+        class: GameBundle\RedisWrapper
 #    game.example:
 #        class: GameBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
+    app.default_controller:
+        class: GameBundle\Controller\DefaultController
+        arguments: ["@templating", "@cache_wrapper"]
+    app.hello_controller:
+        class: GameBundle\Controller\HelloController

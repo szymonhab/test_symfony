@@ -1,4 +1,10 @@
 php7:
-  image: php:7.0-apache
+  image: szymonhab/test_symfony
   ports:
-    - "80:80"
+    - "8080:80"
+  volumes:
+    - /var/www/test_symfony:/projects/test_symfony/
+  links: [redis]
+
+redis:
+  image: redis:3.2
