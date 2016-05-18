@@ -2,22 +2,22 @@
 
 namespace GameBundle\Controller;
 
+use GameBundle\Service\RedisWrapper;
 use Predis\Client;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 /**
  * Class DefaultController
  * @package GameBundle\Controller
- * @Route("/game")
+ * @Route("/game", service="app.default_controller")
  */
 class DefaultController
 {
     private $templating;
     private $redisWrapper;
 
-    public function __construct(EngineInterface $templating, \RedisWrapper $redisWrapper)
+    public function __construct(EngineInterface $templating, RedisWrapper $redisWrapper)
     {
         $this->templating = $templating;
         $this->redisWrapper = $redisWrapper;

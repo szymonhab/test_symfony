@@ -1,5 +1,6 @@
 <?php
 
+namespace GameBundle\Service;
 
 class RedisWrapper
 {

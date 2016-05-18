@@ -7,7 +7,3 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-hello:
-    path:     /hello
-    defaults:
-        _controller: app.hello_controller:indexAction

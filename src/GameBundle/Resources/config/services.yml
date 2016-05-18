@@ -1,6 +1,6 @@
 services:
     cache_wrapper:
-        class: GameBundle\RedisWrapper
+        class: GameBundle\Service\RedisWrapper
 #    game.example:
 #        class: GameBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]

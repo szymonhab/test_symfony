@@ -1,0 +1,5 @@
+hello:
+    path:     /hello
+    defaults:
+        _controller: app.hello_controller:indexAction
+
