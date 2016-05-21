@@ -2,6 +2,7 @@
 
 namespace GameBundle\Controller;
 
+use GameBundle\Model\GameMap;
 use GameBundle\Service\RedisWrapper;
 use Predis\Client;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -36,25 +37,13 @@ class DefaultController
      */
     public function playAction()
     {
-        $single_server = [
-            'host'     => 'redis',
-            'port'     => 6379,
-            'database' => 15,
-        ];
+        $map = new GameMap();
+        $map->generateRandomMap();
+        $this->redisWrapper->setObject('testmap', $map);
 
-        $client = new Client($single_server);
+        $mapFromRedis = $this->redisWrapper->getObject('testmap');
+        var_dump($mapFromRedis);exit;
 
-        $mkv = array(
-            'uid:0001' => '1st user',
-            'uid:0002' => '2nd user',
-            'uid:0003' => '3rd user',
-        );
-
-        $client->mset($mkv);
-        $response = $client->mget(array_keys($mkv));
-
-        var_export($response); exit;
-
-        return $this->templating->renderResponse('GameBundle:Play:index.html.twig');
+        return $this->templating->renderResponse('GameBundle:Play:index.html.twig', ['data' => $mapFromRedis]);
     }
 }
