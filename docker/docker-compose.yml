@@ -3,7 +3,7 @@ php7:
   ports:
     - "8080:80"
   volumes:
-    - /var/www/test_symfony:/projects/test_symfony/
+    - /c/Users/SzymonH/Desktop/PHP/test_symfony:/projects/test_symfony/
   links: [redis]
 
 redis:

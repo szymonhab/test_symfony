@@ -36,11 +36,21 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
+        if ($this->environment === 'dev') {
+
+            return '/projects/test_symfony_cache';
+        }
+        
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
     }
 
     public function getLogDir()
     {
+        if ($this->environment === 'dev') {
+
+            return '/projects/test_symfony_logs';
+        }
+
         return dirname(__DIR__).'/var/logs';
     }
 

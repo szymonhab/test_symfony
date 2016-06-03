@@ -42,7 +42,6 @@ class DefaultController
         $this->redisWrapper->setObject('testmap', $map);
 
         $mapFromRedis = $this->redisWrapper->getObject('testmap');
-        var_dump($mapFromRedis);exit;
 
         return $this->templating->renderResponse('GameBundle:Play:index.html.twig', ['data' => $mapFromRedis]);
     }

@@ -2,6 +2,10 @@
 
 {% block body %}
     <h1>The game</h1>
+    {% set test = [1,2,3] %}
+    {% for row in test %}
+        <p>test {{ row }}</p>
+    {% endfor %}
 
     <a href="{{ path('_play') }}">Start</a>
 {% endblock %}
