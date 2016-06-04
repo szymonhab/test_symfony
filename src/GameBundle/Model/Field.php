@@ -7,6 +7,15 @@ class Field
     private $terrainType;
     private $buildingType;
 
+    private $mapTerrainName = [
+        0 => 'plains',
+        1 => 'hills',
+        2 => 'forest',
+        3 => 'highmountains',
+        4 => 'swamps'
+    ];
+    const IMG_FOLDER = 'img/';
+
     /**
      * @return mixed
      */
@@ -24,7 +33,7 @@ class Field
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getTerrainType()
     {
@@ -32,11 +41,17 @@ class Field
     }
 
     /**
-     * @param mixed $terrainType
+     * @param int $terrainType
      */
     public function setTerrainType($terrainType)
     {
-        $this->terrainType = $terrainType;
+        $this->terrainType = (int) $terrainType;
     }
 
+    public function getTerrainImgURL()
+    {
+        $terrainName = $this->mapTerrainName[$this->getTerrainType()];
+
+        return self::IMG_FOLDER . $terrainName . '.png';
+    }
 }

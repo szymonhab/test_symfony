@@ -2,9 +2,7 @@
 
 namespace GameBundle\Controller;
 
-use GameBundle\Model\GameMap;
-use GameBundle\Service\RedisWrapper;
-use Predis\Client;
+use GameBundle\Service\MapModule\MapManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
@@ -16,12 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 class DefaultController
 {
     private $templating;
-    private $redisWrapper;
+    private $mapManager;
 
-    public function __construct(EngineInterface $templating, RedisWrapper $redisWrapper)
+    public function __construct(EngineInterface $templating, MapManager $mapManager)
     {
         $this->templating = $templating;
-        $this->redisWrapper = $redisWrapper;
+        $this->mapManager = $mapManager;
     }
 
     /**
@@ -29,6 +27,8 @@ class DefaultController
      */
     public function indexAction()
     {
+        $this->mapManager->startNewGame();
+
         return $this->templating->renderResponse('GameBundle:Default:index.html.twig');
     }
 
@@ -37,12 +37,7 @@ class DefaultController
      */
     public function playAction()
     {
-        $map = new GameMap();
-        $map->generateRandomMap();
-        $this->redisWrapper->setObject('testmap', $map);
 
-        $mapFromRedis = $this->redisWrapper->getObject('testmap');
-
-        return $this->templating->renderResponse('GameBundle:Play:index.html.twig', ['data' => $mapFromRedis]);
+        return $this->templating->renderResponse('GameBundle:Play:index.html.twig');
     }
 }

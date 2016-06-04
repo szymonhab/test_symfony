@@ -1,0 +1,9 @@
+#map {
+    position: relative;
+}
+
+#map .field {
+    position: absolute;
+    width: 127px;
+    height: 110px;
+}

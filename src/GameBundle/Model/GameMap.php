@@ -2,31 +2,30 @@
 
 namespace GameBundle\Model;
 
-/**
- * Class GameMap represents game map data structure
- */
+
 class GameMap
 {
-    /**
-     * @var array Internal array is x-axis, External y-axis
-     */
-    private $fields = [[]];
+    /** @var $fields Internal array is X-axis, external Y-axis */
+    protected $fields = [[]];
 
-    public function generateRandomMap()
-    {
-        $size = 8;
-
-        for ($x = 0; $x < $size; $x++) {
-            for ($y = 0; $y < $size; $y++) {
-                $field = new Field();
-                $field->setTerrainType(mt_rand(0, 5));
-                $this->pushField($x, $y, $field);
-            }
-        }
-    }
-
-    private function pushField($x, $y, $field)
+    public function pushField($x, $y, Field $field)
     {
         $this->fields[$y][$x] = $field;
+    }
+
+    public function getArrayRepresentation()
+    {
+        $array = [[]];
+        foreach ($this->fields as $y => $row) {
+            foreach ($row as $x => $field) {
+                /** @var Field $field */
+                $array[$y][$x] = [
+                    'type' => $field->getTerrainType(),
+                    'img' => $field->getTerrainImgURL()
+                ];
+            }
+        }
+
+        return $array;
     }
 }

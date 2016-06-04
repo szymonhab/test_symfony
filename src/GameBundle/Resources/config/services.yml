@@ -1,11 +1,20 @@
 services:
     cache_wrapper:
         class: GameBundle\Service\RedisWrapper
+    game.session_manager:
+        class: GameBundle\Service\SessionManager
+        arguments: ["@session"]
+    game.map_manager:
+        class: GameBundle\Service\MapModule\MapManager
+        arguments: ["@cache_wrapper", "@game.session_manager"]
 #    game.example:
 #        class: GameBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
     app.default_controller:
         class: GameBundle\Controller\DefaultController
-        arguments: ["@templating", "@cache_wrapper"]
+        arguments: ["@templating", "@game.map_manager"]
     app.hello_controller:
         class: GameBundle\Controller\HelloController
+    app.map_controller:
+        class: GameBundle\Controller\MapController
+        arguments: ["@game.map_manager"]
